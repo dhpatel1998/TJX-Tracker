@@ -5,7 +5,7 @@ var customersMockData = require("../mockdata/customers")
 
 router.route('/')
 .get((req, res, next) => {
-    res.json(customersMockData)
+    res.send("working")
 })
 
 module.exports = router;
