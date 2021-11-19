@@ -661,7 +661,7 @@ describe('ORDERS', () => {
 
         })
         //------- TESTS FOR WHEN REQUESTS SHOULD NOT GO WELL------------------------------------------
-        test('responds with 400 status code for PUT request to invalid product_id', async () => {
+        test('responds with 400 status code for PUT request to invalid order_id', async () => {
 
             const response = await request
                 .put("/api/orders/0")
@@ -712,25 +712,9 @@ describe('ORDERS', () => {
         })
 
     })
-    describe('DELETE method for PRODUCTS ID endpoint', () => {
+    describe('DELETE method for ORDERS ID endpoint', () => {
 
         //------- TESTS FOR WHEN REQUESTS SHOULD GO WELL------------------------------------------
-
-        test("return a 200 status code for deleted product", async () => {
-
-            const first_response = await request.get("/api/products")
-
-            globalThis.last_product_id = first_response.body[first_response.body.length - 1]["product_id"]
-            globalThis.last_product_sku = first_response.body[first_response.body.length - 1]["product_sku"]
-
-            const response = await request.delete(`/api/customers/${last_product_id}`)
-            expect(response.statusCode).toBe(200)
-
-        })
-        test("return undefined when probed for previously deleted customer", async () => {
-            const response = await request.get(`/api/customers/${last_product_id}`)
-            expect(response.body.length).toBe(undefined)
-        })
 
     })
 })
