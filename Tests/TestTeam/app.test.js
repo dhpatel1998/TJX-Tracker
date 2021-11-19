@@ -1,8 +1,5 @@
 var request = require('supertest');
-//const app = require('../../Application/app');
-//const screen = require('@testing-library/jest-dom');
-
-request = request('https://tjx-tracker-dev.azurewebsites.net/');
+request = request('https://tjx-tracker.azurewebsites.net/');
 
 
 describe('CUSTOMERS', () => {
@@ -252,11 +249,9 @@ describe('CUSTOMERS', () => {
         })
 
     })
-
 })
 
 describe('PRODUCTS', () => {
-
 
     describe('GET method for PRODUCTS endpoint', () => {
 
@@ -464,6 +459,7 @@ describe('PRODUCTS', () => {
 })
 
 describe('ORDERS', () => {
+
     describe('GET method for ORDERS endpoint', () => {
         //------- TESTS FOR WHEN REQUESTS SHOULD GO WELL------------------------------------------
         test("respond with a 200 status code", async () => {
@@ -819,43 +815,14 @@ describe('ORDERS', () => {
             expect(response.text).toBe("Order Not Updated")
 
         })
-        /* test('responds with 400 status code to change order detail above status_id = 1', async () => {
-            var response = await request.get(`/api/orders/${newOrderId}`)
-            const old_order_detail = response.order_detail
-            var response = await request
-                .put(`/api/orders/${newOrderId}`)
-                .send({
-                    
-                    "order_notes": "testing team",
-                    "status_id": 4,
-                    "order_detail": [
-                        {
-                            "quantity_purchased": 1,
-                            "product_id": 1
-                        },
-                        {
-                            "quantity_purchased": 2,
-                            "product_id": 2
-                        }
-                    ]
-                })
-                .set('Accept', 'application/json')
-                
-                const new_order_detail = response.text.order_detail
-                expect(old_order_detail).toEqual(1)
 
-        }) */
- 
 
 
 
     })
-
-
-
     describe('DELETE method for ORDERS ID endpoint', () => {
 
-        test('create sample order', async () => { 
+        test('create sample order', async () => {
             const response = await request.post("/api/orders")
                 .send({
                     "order_notes": "testing team",
@@ -872,12 +839,12 @@ describe('ORDERS', () => {
             expect(response.body[0].order_id).toBeDefined()
             globalThis.testOrderId = response.body[0].order_id; // using this new order to validate PUT requests
         })
-        test('delete sample order', async () => { 
+        test('delete sample order', async () => {
             const response = await request.delete(`/api/orders/${testOrderId}`)
             expect(response.statusCode).toBe(200)
             expect(response.text).toBe("Order Successfully Deleted")
         })
-        test('create sample order to testing deletion of order above draft', async () => { 
+        test('create sample order to testing deletion of order above draft', async () => {
             const response = await request.post("/api/orders")
                 .send({
                     "order_notes": "testing team",
@@ -914,7 +881,7 @@ describe('ORDERS', () => {
             //expect(response.text).toBe("order updated")
 
         })
-        test('should not delete order with status above draft', async () => { 
+        test('should not delete order with status above draft', async () => {
             const response = await request.delete(`/api/orders/${testOrderId}`)
             expect(response.statusCode).toBe(400)
             expect(response.text).toBe("Order Not Deleted")
